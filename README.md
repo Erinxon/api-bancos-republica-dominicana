@@ -1,6 +1,6 @@
 # Api para consultar bancos que están operando en República Dominicana
 
-# Response /Banks
+# Response GET api/Banks
 
 ``` json
 {
@@ -26,7 +26,7 @@
 }
 ```
 
-# Response /Banks/Detail?URL=
+# Response GET api/Banks/Detail?URL=
 
 ``` json
 {
