@@ -1,4 +1,4 @@
-# Api para consultar bancos que están operando en República Dominicana
+# Api para consultar los bancos que están operando en República Dominicana
 
 # Response GET api/Banks
 
