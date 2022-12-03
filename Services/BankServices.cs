@@ -49,19 +49,26 @@ namespace banks.Services
         {
             var summaryDetail = this.htmlDocument.DocumentNode.SelectNodes(XPathModel.SummaryDetail);
             var generalInformation = this.htmlDocument.DocumentNode.SelectNodes(XPathModel.GeneralInformation);
+            HtmlNode authorizedOffer = null;
+            if (generalInformation.Count > 9)
+            {
+                authorizedOffer = generalInformation[GeneralInformation.AuthorizedOffer];
+                generalInformation.Remove(GeneralInformation.AuthorizedOffer);
+            }
             var bankDetail = new BankDetail
             {
-                BranchOffices = Utility.TryNodesToInnerTextByXPath(summaryDetail, XPathModel.Span, SummaryDetail.BranchOffices).RemoveWhitesSpaces(),
-                ATMs = Utility.TryNodesToInnerTextByXPath(summaryDetail, XPathModel.Span, SummaryDetail.ATMs).RemoveWhitesSpaces(),
-                Subagents = Utility.TryNodesToInnerTextByXPath(summaryDetail, XPathModel.Span, SummaryDetail.Subagents).RemoveWhitesSpaces(),
-                Shareholders = Utility.TryNodesToInnerTextByXPath(summaryDetail, XPathModel.Span, SummaryDetail.Shareholders).RemoveWhitesSpaces(),
-                RegistryNumber = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.RegistryNumber).RemoveWhitesSpaces(),
-                BusinessName = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.BusinessName).RemoveWhitesSpaces(),
-                RNC = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.RNC).RemoveWhitesSpaces(),
-                MainOffice = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.MainOffice).RemoveWhitesSpaces(),
-                Phone = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.Phone).RemoveWhitesSpaces(),
-                Email = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.Email).RemoveWhitesSpaces(),
-                WebPage = Utility.TryNodeToAttributeValue(generalInformation, XPathModel.A, GeneralInformation.WebPage, XPathModel.Href, BankUrls.BaseUrl).RemoveWhitesSpaces(),
+                BranchOffices = Utility.TryNodesToInnerTextByXPath(summaryDetail, XPathModel.Span, SummaryDetail.BranchOffices),
+                ATMs = Utility.TryNodesToInnerTextByXPath(summaryDetail, XPathModel.Span, SummaryDetail.ATMs),
+                Subagents = Utility.TryNodesToInnerTextByXPath(summaryDetail, XPathModel.Span, SummaryDetail.Subagents),
+                Shareholders = Utility.TryNodesToInnerTextByXPath(summaryDetail, XPathModel.Span, SummaryDetail.Shareholders),
+                RegistryNumber = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.RegistryNumber),
+                BusinessName = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.BusinessName),
+                RNC = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.RNC),
+                AuthorizedOffer = Utility.TryNodeToInnerTextByXPth(authorizedOffer, XPathModel.Span),
+                MainOffice = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.MainOffice),
+                Phone = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.Phone),
+                Email = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.Email),
+                WebPage = Utility.TryNodeToAttributeValue(generalInformation, XPathModel.A, GeneralInformation.WebPage, XPathModel.Href, BankUrls.BaseUrl),
                 SocialNetworks = Utility.TryParse(() => generalInformation[GeneralInformation.SocialNetworks].SelectNodes(XPathModel.ExternalLinks).Select(node => new ExternalLinks {
                     Link = Utility.TryParse(() => node.GetAttributeValue(XPathModel.Href, string.Empty)),
                     Image = Utility.TryParse(() => string.Concat(BankUrls.BaseUrl, node.SelectSingleNode(XPathModel.Img).GetAttributeValue(XPathModel.Src, string.Empty))),

@@ -43,6 +43,7 @@
         public const int RegistryNumber = 0;
         public const int BusinessName = 1;
         public const int RNC = 2;
+        public const int AuthorizedOffer = 3;
         public const int MainOffice = 3;
         public const int Phone = 4;
         public const int Email = 5;

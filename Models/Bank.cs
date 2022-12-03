@@ -31,6 +31,7 @@ namespace banks.Models
         public string RegistryNumber { get; set; }
         public string BusinessName { get; set; }
         public string RNC { get; set; }
+        public string AuthorizedOffer { get; set; }
         public string MainOffice { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }

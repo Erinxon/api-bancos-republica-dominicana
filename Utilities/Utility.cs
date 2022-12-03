@@ -8,26 +8,31 @@ namespace banks.Utilities
     {
         public static string TryNodeToInnerText(HtmlNode htmlNode)
         {
-            return htmlNode is not null ? htmlNode.InnerText : String.Empty;
+            return htmlNode is not null ? htmlNode.InnerText.RemoveWhitesSpaces() : String.Empty;
+        }
+
+        public static string TryNodeToInnerTextByXPth(HtmlNode htmlNode, string XPath)
+        {
+            return htmlNode is not null ? TryParse(() => htmlNode.SelectSingleNode(XPath).InnerText.RemoveWhitesSpaces()) : String.Empty;
         }
 
         public static string TryNodeToAttributeValue(HtmlNode htmlNode, string Attribute, string concatenate)
         {
-            return TryParse(() => string.Concat(concatenate, htmlNode.GetAttributeValue(Attribute, string.Empty)));
+            return TryParse(() => string.Concat(concatenate, htmlNode.GetAttributeValue(Attribute, string.Empty)).RemoveWhitesSpaces());
         }
 
         public static string TryNodesToInnerText(HtmlNodeCollection htmlNodes, int index)
         {
-            return htmlNodes is not null ? TryParse(() => htmlNodes[index].InnerText) : string.Empty;
+            return htmlNodes is not null ? TryParse(() => htmlNodes[index].InnerText.RemoveWhitesSpaces()) : string.Empty;
         }
         public static string TryNodesToInnerTextByXPath(HtmlNodeCollection htmlNodes, string XPath, int index)
         {
-            return htmlNodes is not null ? TryParse(() => htmlNodes[index].SelectSingleNode(XPath).InnerText) : string.Empty;
+            return htmlNodes is not null ? TryParse(() => htmlNodes[index].SelectSingleNode(XPath).InnerText.RemoveWhitesSpaces()) : string.Empty;
         }
 
         public static string TryNodeToAttributeValue(HtmlNodeCollection htmlNode, string XPath, int index, string Attribute, string concatenate)
         {
-            return TryParse(() => string.Concat(concatenate, htmlNode[index].SelectSingleNode(XPath).GetAttributeValue(Attribute, string.Empty)));
+            return TryParse(() => string.Concat(concatenate, htmlNode[index].SelectSingleNode(XPath).GetAttributeValue(Attribute, string.Empty)).RemoveWhitesSpaces());
         }
 
         public static T TryParse<T>(TryParseDelegate<T> tryParseDelegate)
