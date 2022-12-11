@@ -68,7 +68,7 @@ namespace banks.Services
                 MainOffice = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.MainOffice),
                 Phone = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.Phone),
                 Email = Utility.TryNodesToInnerTextByXPath(generalInformation, XPathModel.Span, GeneralInformation.Email),
-                WebPage = Utility.TryNodeToAttributeValue(generalInformation, XPathModel.A, GeneralInformation.WebPage, XPathModel.Href, BankUrls.BaseUrl),
+                WebPage = Utility.TryNodeToAttributeValue(generalInformation, XPathModel.A, GeneralInformation.WebPage, XPathModel.Href, string.Empty),
                 SocialNetworks = Utility.TryParse(() => generalInformation[GeneralInformation.SocialNetworks].SelectNodes(XPathModel.ExternalLinks).Select(node => new ExternalLinks {
                     Link = Utility.TryParse(() => node.GetAttributeValue(XPathModel.Href, string.Empty)),
                     Image = Utility.TryParse(() => string.Concat(BankUrls.BaseUrl, node.SelectSingleNode(XPathModel.Img).GetAttributeValue(XPathModel.Src, string.Empty))),
