@@ -22,12 +22,18 @@
         public const string GeneralInformation = "//div[@class='individual_page_entities main_layout_reverse bottom_border_radius']/div[@class='general_info_entity_section   ']/div/div[@class='general_info_box']/div";
         public const string Span = "span";
         public const string Href = "href";
+        public const string Label = "label";
         public const string Src = "src";
         public const string A = "a";
         public const string Img = "img";
         public const string Alt = "alt";
         public const string P = "p";
+        public const string Title = "title";
         public const string ExternalLinks = "div[@class='icons_container']/a";
+        public const string AdministrativeCouncil = "//div[@class='employee_finantial_info_cards_container']/div[contains(@class, 'administrative_council_tile_cards_container')]/div/div[@class='title_sub_title_box']";
+        public const string MainOfficials = "//div[@class='employee_finantial_info_cards_container']/div[contains(@class, 'main_officials_tile_cards_container')]/div/div[@class='title_sub_title_box']";
+        public const string FinancialStatements = "//div[@class='employee_finantial_info_cards_container']/div[contains(@class, 'financial_statements_tile_cards_container')]/div/div[@class='title_sub_title_box']";
+        public const string AnnualReports = "//div[@class='employee_finantial_info_cards_container']/div[contains(@class, 'annual_reports_tile_cards_container')]/div/div[@class='title_sub_title_box']";
     }
 
     public static class SummaryDetail
@@ -57,5 +63,17 @@
         public const int Description = 0;
         public const int LinkOfficialNotice = 1;
         public const int LinkFrequentQuestions = 2;
+    }
+
+    public static class ReplaceText
+    {
+        public const string FileTimePeriodSize = "Tamaño:";
+        public const string FileTimePeriodFormat = "Formato:";
+    }
+
+    public static class SplitWords
+    {
+        public const string FileTimePeriod = "-";
+        public const string ExternalLinks = " ";
     }
 }

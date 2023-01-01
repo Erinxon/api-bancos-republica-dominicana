@@ -50,6 +50,10 @@ namespace banks.Services
             var summaryDetail = this.htmlDocument.DocumentNode.SelectNodes(XPathModel.SummaryDetail);
             var generalInformation = this.htmlDocument.DocumentNode.SelectNodes(XPathModel.GeneralInformation);
             HtmlNode authorizedOffer = null;
+            var administrativeCouncil = this.htmlDocument.DocumentNode.SelectNodes(XPathModel.AdministrativeCouncil);
+            var mainOfficials = this.htmlDocument.DocumentNode.SelectNodes(XPathModel.MainOfficials);
+            var financialStatements = this.htmlDocument.DocumentNode.SelectNodes(XPathModel.FinancialStatements);
+            var annualReports = this.htmlDocument.DocumentNode.SelectNodes(XPathModel.AnnualReports);
             if (generalInformation.Count > 9)
             {
                 authorizedOffer = generalInformation[GeneralInformation.AuthorizedOffer];
@@ -72,14 +76,38 @@ namespace banks.Services
                 SocialNetworks = Utility.TryParse(() => generalInformation[GeneralInformation.SocialNetworks].SelectNodes(XPathModel.ExternalLinks).Select(node => new ExternalLinks {
                     Link = Utility.TryParse(() => node.GetAttributeValue(XPathModel.Href, string.Empty)),
                     Image = Utility.TryParse(() => string.Concat(BankUrls.BaseUrl, node.SelectSingleNode(XPathModel.Img).GetAttributeValue(XPathModel.Src, string.Empty))),
-                    Name = Utility.TryParse(() => node.SelectSingleNode(XPathModel.Img).GetAttributeValue(XPathModel.Alt, string.Empty).Split(" ")[0]),
+                    Name = Utility.TryParse(() => node.SelectSingleNode(XPathModel.Img).GetAttributeValue(XPathModel.Title, string.Empty).Split(SplitWords.ExternalLinks)[0]),
                 }).ToList()),
                 MobilesAppStore = Utility.TryParse(() => generalInformation[GeneralInformation.MobilesAppStore].SelectNodes(XPathModel.ExternalLinks).Select(node => new ExternalLinks
                 {
                     Link = Utility.TryParse(() => node.GetAttributeValue(XPathModel.Href, string.Empty)),
                     Image = Utility.TryParse(() => string.Concat(BankUrls.BaseUrl, node.SelectSingleNode(XPathModel.Img).GetAttributeValue(XPathModel.Src, string.Empty))),
-                    Name = Utility.TryParse(() => node.SelectSingleNode(XPathModel.Img).GetAttributeValue(XPathModel.Alt, string.Empty).Split(" ")[0]),
-                }).ToList())
+                    Name = Utility.TryParse(() => node.SelectSingleNode(XPathModel.Img).GetAttributeValue(XPathModel.Title, string.Empty).Split(SplitWords.ExternalLinks)[0]),
+                }).ToList()),
+                AdministrativeCouncil = Utility.TryParse(() => administrativeCouncil.Select(a => new Employee
+                {
+                    Name = Utility.TryParse(() => a.SelectSingleNode(XPathModel.Label).InnerText).RemoveWhitesSpaces(),
+                    Position = Utility.TryParse(() => a.SelectSingleNode(XPathModel.Span).InnerText).RemoveWhitesSpaces(),
+                })).ToList(),
+                MainOfficials = Utility.TryParse(() => mainOfficials.Select(m => new Employee
+                {
+                    Name = Utility.TryParse(() => m.SelectSingleNode(XPathModel.Label).InnerText).RemoveWhitesSpaces(),
+                    Position = Utility.TryParse(() => m.SelectSingleNode(XPathModel.Span).InnerText).RemoveWhitesSpaces(),
+                })).ToList(),
+                FinancialStatements = Utility.TryParse(() => financialStatements.Select(f => new FileTimePeriod
+                {
+                   Link = Utility.TryParse(() => string.Concat(BankUrls.BaseUrl, f.SelectSingleNode(XPathModel.A).GetAttributeValue(XPathModel.Href, string.Empty))),
+                   Date = Utility.TryParse(() => f.SelectSingleNode(XPathModel.A).InnerText).RemoveWhitesSpaces(),
+                   Size = Utility.TryParse(() => f.SelectSingleNode(XPathModel.Span).InnerText).Split(SplitWords.FileTimePeriod)[0].Replace(ReplaceText.FileTimePeriodSize, string.Empty).RemoveWhitesSpaces(),
+                   Format = Utility.TryParse(() => f.SelectSingleNode(XPathModel.Span).InnerText).Split(SplitWords.FileTimePeriod)[1].Replace(ReplaceText.FileTimePeriodFormat, string.Empty).RemoveWhitesSpaces(),
+                })).ToList(),
+                AnnualReports = Utility.TryParse(() => annualReports.Select(f => new FileTimePeriod
+                {
+                    Link = Utility.TryParse(() => string.Concat(BankUrls.BaseUrl, f.SelectSingleNode(XPathModel.A).GetAttributeValue(XPathModel.Href, string.Empty))),
+                    Date = Utility.TryParse(() => f.SelectSingleNode(XPathModel.A).InnerText).RemoveWhitesSpaces(),
+                    Size = Utility.TryParse(() => f.SelectSingleNode(XPathModel.Span).InnerText).Split(SplitWords.FileTimePeriod)[0].Replace(ReplaceText.FileTimePeriodSize, string.Empty).RemoveWhitesSpaces(),
+                    Format = Utility.TryParse(() => f.SelectSingleNode(XPathModel.Span).InnerText).Split(SplitWords.FileTimePeriod)[1].Replace(ReplaceText.FileTimePeriodFormat, string.Empty).RemoveWhitesSpaces(),
+                })).ToList()
             };
             return bankDetail;
         }

@@ -38,6 +38,10 @@ namespace banks.Models
         public string WebPage { get; set; }
         public List<ExternalLinks> SocialNetworks { get; set; }
         public List<ExternalLinks> MobilesAppStore { get; set; }
+        public List<Employee> AdministrativeCouncil { get; set; }
+        public List<Employee> MainOfficials { get; set; }
+        public List<FileTimePeriod> FinancialStatements { get; set; }
+        public List<FileTimePeriod> AnnualReports { get; set; }
     }
 
     public class ExternalLinks
@@ -45,6 +49,20 @@ namespace banks.Models
         public string Name { get; set; }
         public string Link { get; set; }
         public string Image { get; set; }
+    }
+
+    public class Employee
+    {
+        public string Name { get; set; }
+        public string Position { get; set; }
+    }
+
+    public class FileTimePeriod
+    {
+        public string Link { get; set; }
+        public string Date { get; set; }
+        public string Format { get; set; }
+        public string Size { get; set; }
     }
 
 }
