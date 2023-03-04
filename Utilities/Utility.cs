@@ -8,31 +8,42 @@ namespace banks.Utilities
     {
         public static string TryNodeToInnerText(HtmlNode htmlNode)
         {
-            return htmlNode is not null ? htmlNode.InnerText.RemoveWhitesSpaces() : String.Empty;
+            return htmlNode is not null ? htmlNode?.InnerText?.RemoveWhitesSpaces() : String.Empty;
         }
 
         public static string TryNodeToInnerTextByXPth(HtmlNode htmlNode, string XPath)
         {
-            return htmlNode is not null ? TryParse(() => htmlNode.SelectSingleNode(XPath).InnerText.RemoveWhitesSpaces()) : String.Empty;
+            var nodeSeleted = htmlNode is not null ? htmlNode.SelectSingleNode(XPath) : null;
+            var value = nodeSeleted != null ? nodeSeleted.InnerText : null;
+            return value is not null ? value.RemoveWhitesSpaces() : null;
         }
 
         public static string TryNodeToAttributeValue(HtmlNode htmlNode, string Attribute, string concatenate)
         {
-            return TryParse(() => string.Concat(concatenate, htmlNode.GetAttributeValue(Attribute, string.Empty)).RemoveWhitesSpaces());
+            var value = htmlNode is not null ? htmlNode.GetAttributeValue(Attribute, string.Empty) : null;
+            return value is not null ? string.Concat(concatenate, value) : String.Empty;
         }
 
         public static string TryNodesToInnerText(HtmlNodeCollection htmlNodes, int index)
         {
-            return htmlNodes is not null ? TryParse(() => htmlNodes[index].InnerText.RemoveWhitesSpaces()) : string.Empty;
+            var node = htmlNodes is not null ? htmlNodes[index] : null;
+            var value = node is not null ? htmlNodes[index].InnerText : null;
+            return value is not null ? value.RemoveWhitesSpaces() : string.Empty;
         }
         public static string TryNodesToInnerTextByXPath(HtmlNodeCollection htmlNodes, string XPath, int index)
         {
-            return htmlNodes is not null ? TryParse(() => htmlNodes[index].SelectSingleNode(XPath).InnerText.RemoveWhitesSpaces()) : string.Empty;
+            var node = htmlNodes is not null ? htmlNodes[index] : null;
+            var nodeSeleted = node is not null ? node.SelectSingleNode(XPath) : null;
+            var value = nodeSeleted is not null ? nodeSeleted.InnerText : null;
+            return value is not null ? value.RemoveWhitesSpaces() : String.Empty;
         }
 
-        public static string TryNodeToAttributeValue(HtmlNodeCollection htmlNode, string XPath, int index, string Attribute, string concatenate)
+        public static string TryNodeToAttributeValue(HtmlNodeCollection htmlNodes, string XPath, int index, string Attribute, string concatenate)
         {
-            return TryParse(() => string.Concat(concatenate, htmlNode[index].SelectSingleNode(XPath).GetAttributeValue(Attribute, string.Empty)).RemoveWhitesSpaces());
+            var node = htmlNodes is not null ? htmlNodes[index] : null;
+            var nodeSeleted = node is not null ? node.SelectSingleNode(XPath) : null;
+            var attribute = nodeSeleted is not null ? nodeSeleted.GetAttributeValue(Attribute, string.Empty) : string.Empty;
+            return attribute is not null ? string.Concat(concatenate, attribute.RemoveWhitesSpaces()) : string.Empty;
         }
 
         public static T TryParse<T>(TryParseDelegate<T> tryParseDelegate)
@@ -43,7 +54,7 @@ namespace banks.Utilities
             }
             catch (Exception)
             {
-                return (T)Convert.ChangeType(typeof(T) == typeof(string) ? string.Empty : null, typeof(T));
+                return default(T);
             }
         }
 
