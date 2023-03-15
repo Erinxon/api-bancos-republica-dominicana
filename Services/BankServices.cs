@@ -104,7 +104,7 @@ namespace banks.Services
                 AnnualReports = Utility.TryParse(() => annualReports?.Select(f => new FileTimePeriod
                 {
                     Link = Utility.TryParse(() => string.Concat(BankUrls.BaseUrl, f?.SelectSingleNode(XPathModel.A)?.GetAttributeValue(XPathModel.Href, string.Empty))),
-                    Date = Utility.TryParse(() => f?.SelectSingleNode(XPathModel.A).InnerText)>.RemoveWhitesSpaces(),
+                    Date = Utility.TryParse(() => f?.SelectSingleNode(XPathModel.A).InnerText)?.RemoveWhitesSpaces(),
                     Size = Utility.TryParse(() => f?.SelectSingleNode(XPathModel.Span).InnerText)?.Split(SplitWords.FileTimePeriod)[0]?.Replace(ReplaceText.FileTimePeriodSize, string.Empty)?.RemoveWhitesSpaces(),
                     Format = Utility.TryParse(() => f?.SelectSingleNode(XPathModel.Span).InnerText)?.Split(SplitWords.FileTimePeriod)[1]?.Replace(ReplaceText.FileTimePeriodFormat, string.Empty)?.RemoveWhitesSpaces(),
                 })).ToList()
