@@ -1,5 +1,8 @@
-﻿using HtmlAgilityPack;
+﻿using banks.Models;
+using HtmlAgilityPack;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace banks.Utilities
 {
@@ -61,6 +64,40 @@ namespace banks.Utilities
         public static string RemoveWhitesSpaces(this string text)
         {
             return text.Trim().Replace("\r\n", string.Empty);
+        }
+
+        public static List<FileTimePeriod> GetFileTimePeriods(this HtmlNodeCollection htmlNodes)
+        {
+            if (htmlNodes is null) return null;
+            return Utility.TryParse(() => htmlNodes?.Select(f => new FileTimePeriod
+            {
+                Link = Utility.TryParse(() => string.Concat(BankUrls.BaseUrl, f?.SelectSingleNode(XPathModel.A)?.GetAttributeValue(XPathModel.Href, string.Empty))),
+                Date = Utility.TryParse(() => f?.SelectSingleNode(XPathModel.A).InnerText)?.RemoveWhitesSpaces(),
+                Size = Utility.TryParse(() => f?.SelectSingleNode(XPathModel.Span).InnerText)?.Split(SplitWords.FileTimePeriod)[0]?.Replace(ReplaceText.FileTimePeriodSize, string.Empty)?.RemoveWhitesSpaces(),
+                Format = Utility.TryParse(() => f?.SelectSingleNode(XPathModel.Span).InnerText)?.Split(SplitWords.FileTimePeriod)[1]?.Replace(ReplaceText.FileTimePeriodFormat, string.Empty)?.RemoveWhitesSpaces(),
+            })).ToList();
+        }
+
+        public static List<Employee> GetEmployees(this HtmlNodeCollection htmlNodes)
+        {
+            if (htmlNodes is null) return null;
+            return Utility.TryParse(() => htmlNodes?.Select(a => new Employee
+            {
+                Name = Utility.TryParse(() => a?.SelectSingleNode(XPathModel.Label).InnerText)?.RemoveWhitesSpaces(),
+                Position = Utility.TryParse(() => a?.SelectSingleNode(XPathModel.Span).InnerText)?.RemoveWhitesSpaces(),
+            })).ToList();
+        }
+
+        public static List<ExternalLinks> GetExternalLinks(this HtmlNodeCollection htmlNodes, int Position)
+        {
+            var nodes = htmlNodes is not null && Position <= htmlNodes.Count - 1 ? htmlNodes[Position] : null;
+            if (nodes is null) return null;
+            return Utility.TryParse(() => nodes?.SelectNodes(XPathModel.ExternalLinks)?.Select(node => new ExternalLinks
+            {
+                Link = Utility.TryParse(() => node?.GetAttributeValue(XPathModel.Href, string.Empty)),
+                Image = Utility.TryParse(() => string.Concat(BankUrls.BaseUrl, node?.SelectSingleNode(XPathModel.Img)?.GetAttributeValue(XPathModel.Src, string.Empty))),
+                Name = Utility.TryParse(() => node?.SelectSingleNode(XPathModel.Img)?.GetAttributeValue(XPathModel.Title, string.Empty)?.Split(SplitWords.ExternalLinks)[0]),
+            }).ToList());
         }
     }
 }
