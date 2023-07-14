@@ -38,6 +38,7 @@
     "registryNumber": "string",
     "businessName": "string",
     "rnc": "string",
+    "authorizedOffer": "string",
     "mainOffice": "string",
     "phone": "string",
     "email": "string",
@@ -54,6 +55,34 @@
         "name": "string",
         "link": "string",
         "image": "string"
+      }
+    ],
+    "administrativeCouncil": [
+      {
+        "name": "string",
+        "position": "string"
+      }
+    ],
+    "mainOfficials": [
+      {
+        "name": "string",
+        "position": "string"
+      }
+    ],
+    "financialStatements": [
+      {
+        "link": "string",
+        "date": "string",
+        "format": "string",
+        "size": "string"
+      }
+    ],
+    "annualReports": [
+      {
+        "link": "string",
+        "date": "string",
+        "format": "string",
+        "size": "string"
       }
     ]
   },
