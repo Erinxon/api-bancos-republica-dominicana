@@ -18,8 +18,8 @@
         public const string LinkOfficialNotice = "span/a";
         public const string Status = "div[@class='estatus_info card colorBlueLight06']/span";
         public const string LinkDetail = "div[@class='btn_details_container']/a";
-        public const string SummaryDetail = "//div[@class='individual_page_entities main_layout_reverse bottom_border_radius']/div[@class='header_entity_section ']/div[@class='finantial_entity_info_container is_operating ']/div[@class='finantial_entity_info_card card colorBlue']/div";
-        public const string GeneralInformation = "//div[@class='individual_page_entities main_layout_reverse bottom_border_radius']/div[@class='general_info_entity_section   ']/div/div[@class='general_info_box']/div";
+        public const string SummaryDetail = "//div[@class='individual_page_entities main_layout_reverse bottom_border_radius']/div[contains(@class, 'header_entity_section')]/div[contains(@class, 'finantial_entity_info_container')]/div[contains(@class, 'finantial_entity_info_card')]/div";
+        public const string GeneralInformation = "//div[contains(@class, 'individual_page_entities')]/div[contains(@class, 'general_info_entity_section')]/div/div[@class='general_info_box']/div";
         public const string Span = "span";
         public const string Href = "href";
         public const string Label = "label";

@@ -55,7 +55,7 @@ namespace banks.Services
             var mainOfficials = this.htmlDocument.DocumentNode.SelectNodes(XPathModel.MainOfficials);
             var financialStatements = this.htmlDocument.DocumentNode.SelectNodes(XPathModel.FinancialStatements);
             var annualReports = this.htmlDocument.DocumentNode.SelectNodes(XPathModel.AnnualReports);
-            if (generalInformation.Count > 9)
+            if (generalInformation?.Count > 9)
             {
                 authorizedOffer = generalInformation[GeneralInformation.AuthorizedOffer];
                 generalInformation.Remove(GeneralInformation.AuthorizedOffer);
