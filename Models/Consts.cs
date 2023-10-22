@@ -7,19 +7,19 @@
     }
     public static class XPathModel
     {
-        public const string ContentPageEntities = "//div[@class='content_page_entities main_layout_reverse bottom_border_radius']/div[@class='documents_list_section bottom_border_radius']/div[@class='entities_cards_container']/div";
+        public const string ContentPageEntities = "//div[contains(@class,'content_page_entities')]/div[contains(@class,'documents_list_section')]/div[contains(@class,'entities_cards_container')]/div";
         public const string Name = "a[@class='name_container']/span";
         public const string Type = "label[@class='entity_type_container']";
         public const string Image = "a[@class='img_container']/img";
-        public const string TotalAssets = "div[@class='assets_info card colorBlueLight06 topBox']/div/span";
+        public const string TotalAssets = "div[contains(@class,'assets_info')]/div/span";
         public const string TotalMarket = "div[@class='total_market_employee_amount_container']/div/div/span";
         public const string EmloyeeAmount = "div[@class='total_market_employee_amount_container']/div/div/span";
-        public const string InfoDissolution = "div[@class='description_info card colorBlueLight06']/div[@class='info_container']/label";
+        public const string InfoDissolution = "div[contains(@class,'description_info')]/div[@class='info_container']/label";
         public const string LinkOfficialNotice = "span/a";
-        public const string Status = "div[@class='estatus_info card colorBlueLight06']/span";
+        public const string Status = "div[contains(@class,'estatus_info')]/span";
         public const string LinkDetail = "div[@class='btn_details_container']/a";
-        public const string SummaryDetail = "//div[@class='individual_page_entities main_layout_reverse bottom_border_radius']/div[contains(@class, 'header_entity_section')]/div[contains(@class, 'finantial_entity_info_container')]/div[contains(@class, 'finantial_entity_info_card')]/div";
-        public const string GeneralInformation = "//div[contains(@class, 'individual_page_entities')]/div[contains(@class, 'general_info_entity_section')]/div/div[@class='general_info_box']/div";
+        public const string SummaryDetail = "//div[contains(@class,'individual_page_entities')]/div[contains(@class, 'header_entity_section')]/div[contains(@class, 'finantial_entity_info_container')]/div[contains(@class, 'finantial_entity_info_card')]/div";
+        public const string GeneralInformation = "//div[contains(@class,'individual_page_entities')]/div[contains(@class,'general_info_entity_section')]/div/div[@class='general_info_box']/div";
         public const string Span = "span";
         public const string Href = "href";
         public const string Label = "label";

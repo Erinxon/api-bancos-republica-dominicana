@@ -56,3 +56,8 @@ C:\Users\Erinxon\Desktop\Proyectos\banks\obj\Debug\net5.0\refint\banks.dll
 C:\Users\Erinxon\Desktop\Proyectos\banks\obj\Debug\net5.0\banks.pdb
 C:\Users\Erinxon\Desktop\Proyectos\banks\obj\Debug\net5.0\banks.genruntimeconfig.cache
 C:\Users\Erinxon\Desktop\Proyectos\banks\obj\Debug\net5.0\ref\banks.dll
+C:\Users\Erinxon\Desktop\Proyectos\banks\obj\Debug\net5.0\staticwebassets\banks.StaticWebAssets.Pack.cache
+C:\Users\Erinxon\Desktop\Proyectos\banks\obj\Debug\net5.0\staticwebassets\msbuild.banks.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Erinxon\Desktop\Proyectos\banks\obj\Debug\net5.0\staticwebassets\msbuild.build.banks.props
+C:\Users\Erinxon\Desktop\Proyectos\banks\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.banks.props
+C:\Users\Erinxon\Desktop\Proyectos\banks\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.banks.props
