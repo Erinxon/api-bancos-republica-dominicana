@@ -34,7 +34,7 @@ namespace banks
             }));
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "banks", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Banks", Version = "v1" });
             });
             services.AddScoped<IBankServices, BankServices>();
         }
